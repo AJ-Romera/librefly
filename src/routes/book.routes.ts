@@ -19,7 +19,19 @@ router.post("/books", async (req, res) => {
     console.error(error);
   }
 });
+
 // Read/get books
+router.get("/books", async (req, res) => {
+  try {
+    const books: IBook[] = await Book.find();
+    books && books.length > 0
+      ? res.status(200).json(books)
+      : res.status(400).json({ message: "No books found" });
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 // read/get a book
 // Update a book
 // Delete a book

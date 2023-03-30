@@ -23,4 +23,16 @@ router.post("/authors", async (req, res) => {
   }
 });
 
+// get all authors
+router.get("/authors", async (req, res) => {
+  try {
+    const authors: IAuthor[] = await Author.find();
+    authors && authors.length > 0
+      ? res.status(200).json(authors)
+      : res.status(400).json({ message: "No authors found" });
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 export default router;
