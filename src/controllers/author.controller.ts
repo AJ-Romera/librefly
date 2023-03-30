@@ -30,3 +30,24 @@ export const getAuthors = async (req: Request, res: Response) => {
     console.error(error);
   }
 };
+
+export const getAuthor = async (req: Request, res: Response) => {
+  try {
+    const authorId = req.params.authorId;
+
+    if (authorId.length < 24 || authorId.length > 24) {
+      res
+        .status(404)
+        .json({ message: "Error: The id should be 24 characters long" });
+    } else {
+      const author = await Author.findById(authorId);
+      author
+        ? res.status(200).json(author)
+        : res
+            .status(404)
+            .json({ message: "Author not found with the given id" });
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
