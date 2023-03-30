@@ -11,11 +11,11 @@ const bookSchema = new mongoose.Schema<IBook>(
     name: {
       type: String,
       required: true,
-      unique: true,
       trim: true,
     },
     isbn: {
       type: String,
+      unique: true,
       required: true,
       trim: true,
     },
