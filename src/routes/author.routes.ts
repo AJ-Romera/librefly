@@ -1,8 +1,10 @@
 import express from "express";
 import {
   createAuthor,
+  deleteAuthor,
   getAuthor,
   getAuthors,
+  updateAuthor,
 } from "../controllers/author.controller";
 
 const router = express.Router();
@@ -17,9 +19,9 @@ router.get("/authors", getAuthors);
 router.get("/authors/:authorId", getAuthor);
 
 // update one specific author by it´s id
-// router.put("/authors/:authorId", updateAuthor);
+router.put("/authors/:authorId", updateAuthor);
 
 // delete one specific author by it´s id
-// router.delete("/authors/:authorId", deleteAuthor);
+router.delete("/authors/:authorId", deleteAuthor);
 
 export default router;
