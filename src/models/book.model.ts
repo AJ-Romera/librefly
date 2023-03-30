@@ -2,11 +2,11 @@ import mongoose from "mongoose";
 
 export interface IBook extends mongoose.Document {
   name: string;
-  isbn: number;
-  author: string;
+  isbn: string;
+  author: mongoose.Types.ObjectId;
 }
 
-const bookSchema = new mongoose.Schema(
+const bookSchema = new mongoose.Schema<IBook>(
   {
     name: {
       type: String,
@@ -15,14 +15,13 @@ const bookSchema = new mongoose.Schema(
       trim: true,
     },
     isbn: {
-      type: Number,
+      type: String,
       required: true,
       trim: true,
     },
     author: {
-      type: String,
-      required: true,
-      trim: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Author",
     },
   },
   {
