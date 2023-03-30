@@ -23,7 +23,7 @@ router.post("/books", async (req, res) => {
 // Read/get books
 router.get("/books", async (req, res) => {
   try {
-    const books: IBook[] = await Book.find();
+    const books: IBook[] = await Book.find().populate("author");
     books && books.length > 0
       ? res.status(200).json(books)
       : res.status(400).json({ message: "No books found" });
