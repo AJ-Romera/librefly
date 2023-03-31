@@ -1,39 +1,27 @@
 import express from "express";
-import Book, { IBook } from "../models/book.model";
+import {
+  createBook,
+  deleteBook,
+  getBook,
+  getBooks,
+  updateBook,
+} from "../controllers/book.controller";
 
 const router = express.Router();
 
 // Create a book
-router.post("/books", async (req, res) => {
-  try {
-    const bookFound = await Book.findOne({ isbn: req.body.isbn });
-    if (bookFound) {
-      return res
-        .status(400)
-        .json({ message: "There's already a book with this ISBN" });
-    }
-
-    const book: IBook = await Book.create(req.body);
-    res.status(201).json(book);
-  } catch (error) {
-    console.error(error);
-  }
-});
+router.post("/books", createBook);
 
 // Read/get books
-router.get("/books", async (req, res) => {
-  try {
-    const books: IBook[] = await Book.find().populate("author");
-    books && books.length > 0
-      ? res.status(200).json(books)
-      : res.status(400).json({ message: "No books found" });
-  } catch (error) {
-    console.error(error);
-  }
-});
+router.get("/books", getBooks);
 
 // read/get a book
+router.get("/books/:bookId", getBook);
+
 // Update a book
+router.put("/books/:bookId", updateBook);
+
 // Delete a book
+router.delete("/books/:bookId", deleteBook);
 
 export default router;
