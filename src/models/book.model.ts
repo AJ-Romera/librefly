@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 export interface IBook extends mongoose.Document {
   name: string;
   isbn: string;
-  author: mongoose.Types.ObjectId;
+  author_first_name: string;
+  author_last_name: string;
 }
 
 const bookSchema = new mongoose.Schema<IBook>(
@@ -19,9 +20,17 @@ const bookSchema = new mongoose.Schema<IBook>(
       required: true,
       trim: true,
     },
-    author: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Author",
+    author_first_name: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+    },
+    author_last_name: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
     },
   },
   {

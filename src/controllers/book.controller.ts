@@ -19,7 +19,7 @@ export const createBook = async (req: Request, res: Response) => {
 
 export const getBooks = async (req: Request, res: Response) => {
   try {
-    const books: IBook[] = await Book.find().populate("author");
+    const books: IBook[] = await Book.find();
     books && books.length > 0
       ? res.status(200).json(books)
       : res.status(400).json({ message: "No books found" });
@@ -37,7 +37,7 @@ export const getBook = async (req: Request, res: Response) => {
         .status(404)
         .json({ message: "Error: The id should be 24 characters long" });
     } else {
-      const book = await Book.findById(bookId).populate("author");
+      const book = await Book.findById(bookId);
 
       book
         ? res.status(200).json(book)
@@ -53,7 +53,7 @@ export const updateBook = async (req: Request, res: Response) => {
     const bookId = req.params.bookId;
     const updatedBook = await Book.findByIdAndUpdate(bookId, req.body, {
       new: true,
-    }).populate("author");
+    });
 
     updatedBook
       ? res.status(200).json(updatedBook)
